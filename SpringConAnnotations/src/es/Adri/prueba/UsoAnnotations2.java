@@ -32,11 +32,19 @@ public class UsoAnnotations2 {
 		}
 		Fin de pedir Benas al contenedor*/
 		
-		//Pedir Beans al contenedor
+		//Pedir Beans al contenedor Empleados
+		/*
 		Empleados empleado=contexto.getBean("directorFinanciero", Empleados.class);
 		
 		System.out.println("Tarea --> " + empleado.getTareas());
 		System.out.println("Informe --> " + empleado.getInformes());
+		*/
+		
+		//Pedir Beans al contenedor de DirectorFinanciero
+		DirectorFinanciero empleado=contexto.getBean("directorFinanciero", DirectorFinanciero.class);
+		
+		System.out.println("Email del director: " + empleado.getEmail());
+		System.out.println("Nombre de la empresa: " + empleado.getNombreEmpresa());
 		
 		
 		//cerrar contexto
