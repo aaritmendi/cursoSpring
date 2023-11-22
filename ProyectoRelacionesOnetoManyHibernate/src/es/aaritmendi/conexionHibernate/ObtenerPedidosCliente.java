@@ -5,6 +5,7 @@ import java.util.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 public class ObtenerPedidosCliente {
 
@@ -24,13 +25,19 @@ public class ObtenerPedidosCliente {
 		try {
 			miSession.beginTransaction();
 			
-			//Obtener el cliente de la tabla cliente de la BBDD
-			Cliente elCliente=miSession.get(Cliente.class, 4);
+			//Usamos HQL para sergurarnos que funciona bien LAZY (on demannd)
+			Query<Cliente> consulta=miSession.createQuery("SELECT CL FROM Cliente CL JOIN FETCH CL.pedidos WHERE CL.id=:elClienteId", Cliente.class);
+			consulta.setParameter("elClienteId", 4);
+			
+			//Cargar info en memoria
+			Cliente elCliente=consulta.getSingleResult();
+			
 			System.out.println("Cliente: " + elCliente.getNombre());
-			System.out.println("Pedidos: " + elCliente.getPedidos());
 			
 			
 			miSession.getTransaction().commit();
+			miSession.close();
+			System.out.println("Pedidos: " + elCliente.getPedidos());
 			
 			
 		}catch(Exception e) {

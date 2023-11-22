@@ -103,7 +103,7 @@ public class Cliente {
 	@Column(name="direccion")
 	private String direccion;
 	
-	@OneToMany(mappedBy="cliente", cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+	@OneToMany(fetch=FetchType.LAZY,mappedBy="cliente", cascade= {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
 	private List<Pedido> pedidos;
 	
 	
